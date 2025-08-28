@@ -1,0 +1,112 @@
+/* A4 page preview shell */
+.a4-preview {
+  background: #f6f7f9;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 30px rgba(0,0,0,.06);
+}
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  background: #fff;
+  color: #111;
+  padding: 18mm 16mm;
+  box-sizing: border-box;
+}
+
+/* Fit smaller screens (keeps print A4 via @page) */
+@media (max-width: 900px) {
+  .a4-page { width: 100%; min-height: auto; padding: 14mm 10mm; }
+}
+
+/* Print to real A4 */
+@page { size: A4; margin: 14mm 12mm; }
+@media print {
+  body { background: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .a4-preview { box-shadow: none; border: 0; padding: 0; }
+  .a4-page { width: auto; min-height: auto; padding: 0; }
+  /* Ink-friendly chips */
+  .resume .chip-list li { background: transparent; border: 1px solid #c7cbd1; }
+}
+
+/* Base resume typography + layout */
+.resume {
+  font: 13px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  word-break: break-word;
+}
+.resume h1 { font-size: 22px; margin: 0 0 4px; font-weight: 800; letter-spacing: .2px; }
+.resume h2 { font-size: 12px; margin: 16px 0 8px; text-transform: uppercase; letter-spacing: .1em; border-bottom: 1px solid #e1e4ea; padding-bottom: 4px; break-after: avoid; }
+.resume h3 { font-size: 13px; margin: 8px 0 4px; }
+.resume section { margin: 0 0 8px; }
+.resume p { margin: 6px 0; hyphens: auto; }
+.resume ul { margin: 6px 0 6px 18px; padding: 0; }
+.resume li { margin: 4px 0; }
+.resume .muted { color: #6b7280; }
+
+/* Links */
+.resume a { color: inherit; text-decoration: none; border-bottom: 1px dotted #9ca3af; }
+@media print { .resume a { border-bottom: none; text-decoration: none; } }
+
+/* Chips */
+.resume .chip-list { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0; }
+.resume .chip-list li { font-size: 12px; background: #f3f4f6; padding: 2px 8px; border-radius: 999px; border: 0; line-height: 1.4; }
+.serif-chips li { margin: 2px 4px; } /* fix: serif spacing */
+
+/* Grouped-skill sublabels */
+.resume .subtle {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #6b7280;
+  margin: 6px 0 2px;
+}
+
+/* Experience / blocks */
+.exp { margin-bottom: 10px; break-inside: avoid; page-break-inside: avoid; }
+.exp-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.exp-role { font-weight: 600; }
+.exp-dates { font-size: 12px; }
+.exp-loc { font-size: 12px; margin-top: -2px; }
+.bullets { list-style: disc outside; }
+.bullets li { margin: 3px 0; }
+.bullets.tight li { margin: 2px 0; }
+.impact { margin-top: 6px; font-size: 12px; color: #374151; }
+
+/* Prevent awkward page breaks */
+header, section, .exp, .edu { break-inside: avoid; page-break-inside: avoid; }
+
+/* Headers */
+.r-head { margin-bottom: 6px; }
+
+/* Variant: Serif */
+.classic-serif { font-family: "Source Serif Pro", Georgia, Cambria, "Times New Roman", Times, serif; }
+.classic-serif h2 { border-color: #dedede; }
+
+/* Variant: Compact ATS */
+.compact-ats { font-size: 12.5px; line-height: 1.4; }
+.compact-ats h2 { margin: 12px 0 6px; }
+.compact-ats .tight { margin: 2px 0; }
+.compact-ats .tight-row { margin-bottom: 6px; }
+.compact-ats .exp-head { display: flex; justify-content: space-between; }
+
+/* Variant: Minimal Grid */
+.minimal-grid .grid-head {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 8px;
+  align-items: start;
+  margin-bottom: 4px;
+}
+.minimal-grid .grid-head .right { text-align: right; }
+
+/* Variant: FAANG Modern */
+.faang-modern h2 { border-color: #e1e4ea; }
+
+/* Optional utilities */
+.page-break-before { break-before: page; page-break-before: always; }
+.page-break-after  { break-after: page;  page-break-after: always; }
+.avoid-break       { break-inside: avoid; page-break-inside: avoid; }

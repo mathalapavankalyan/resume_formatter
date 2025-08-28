@@ -1,0 +1,123 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{ragged2e}
+
+\pagenumbering{gobble}
+\RaggedRight
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=1.2em}
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{6pt}{4pt}
+
+% Header helpers
+\newcommand{\name}[1]{\centerline{\huge \bfseries #1}}
+\newcommand{\contacts}[1]{\centerline{\small #1}}
+
+% Inline sep
+\newcommand{\sep}{\;|\;}
+
+\begin{document}
+
+% ==== Header ====
+\name{ {{ resume.name | default("Candidate Name") }} }
+\contacts{%
+  \href{mailto:{{ resume.email | default("") }}}{{ resume.email | default("") }}%
+  {% if resume.phone %} \sep {{ resume.phone }}{% endif %}%
+  {% if resume.linkedin %} \sep \href{ {{ resume.linkedin }} }{ {{ resume.linkedin }} }{% endif %}%
+  {% if resume.github %} \sep \href{ {{ resume.github }} }{ {{ resume.github }} }{% endif %}%
+  {% if resume.location %} \sep {{ resume.location }}{% endif %}
+}
+
+\vspace{0.2cm}
+
+% ==== Education ====
+{% if education and education|length > 0 %}
+\section*{Education}
+{% for edu in education -%}
+\textbf{ {{ edu.school | default("") }} } \hfill {{ edu.location | default("") }} \\
+{{ edu.degree | default("") }} \hfill {\it {{ edu.dates | default("") }} } \\
+{% if edu.gpa %}GPA: {{ edu.gpa }}{% endif %}
+{% if edu.details and edu.details|length > 0 %}
+\begin{itemize}
+  {% for d in edu.details -%}
+  \item {{ d }}
+  {% endfor -%}
+\end{itemize}
+{% endif %}
+\vspace{0.2cm}
+{% endfor %}
+{% endif %}
+
+% ==== Experience ====
+{% if experience and experience|length > 0 %}
+\section*{Experience}
+{% for exp in experience -%}
+\textbf{ {{ exp.title | default("") }} } --- {{ exp.company | default("") }} \hfill {{ exp.dates | default("") }} \\
+{\it {{ exp.location | default("") }} } \\
+{% if exp.bullets and exp.bullets|length > 0 %}
+\begin{itemize}
+  {% for b in exp.bullets -%}
+  \item {{ b }}
+  {% endfor -%}
+\end{itemize}
+{% endif %}
+\vspace{0.2cm}
+{% endfor %}
+{% endif %}
+
+% ==== Projects ====
+{% if projects and projects|length > 0 %}
+\section*{Projects}
+{% for p in projects -%}
+\textbf{ {{ p.name | default("") }} } \hfill {{ p.dates | default("") }} \\
+{{ p.stack | default("") }} \\
+{% if p.description %}{{ p.description }}\\[-4pt]{% endif %}
+{% if p.bullets and p.bullets|length > 0 %}
+\begin{itemize}
+  {% for b in p.bullets -%}
+  \item {{ b }}
+  {% endfor -%}
+\end{itemize}
+{% endif %}
+\vspace{0.2cm}
+{% endfor %}
+{% endif %}
+
+% ==== Skills ====
+{% if skills_groups and skills_groups|length > 0 %}
+\section*{Skills}
+\begin{multicols}{2}
+\begin{itemize}
+  {% for group in skills_groups -%}
+  \item \textbf{ {{ group.label | default("") }}:} {{ (group.items or []) | join(", ") }}
+  {% endfor -%}
+\end{itemize}
+\end{multicols}
+{% elif skills_list and skills_list|length > 0 %}
+\section*{Skills}
+\begin{itemize}
+  {% for skill in skills_list -%}
+  \item {{ skill }}
+  {% endfor -%}
+\end{itemize}
+{% endif %}
+
+% ==== Certifications (optional) ====
+{% if certifications and certifications|length > 0 %}
+\section*{Certifications}
+{% for c in certifications -%}
+{{ c.name | default("") }} \hfill {{ c.year | default("") }} \\
+{% endfor %}
+{% endif %}
+
+\end{document}

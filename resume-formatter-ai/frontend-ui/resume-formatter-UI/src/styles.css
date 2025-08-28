@@ -1,0 +1,137 @@
+:root{
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #111827;
+  --radius: 14px;
+  --shadow: 0 8px 30px rgba(0,0,0,.06);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utilities */
+.container { width: min(1150px, 92vw); margin-inline: auto; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+.btn { border: none; border-radius: 12px; padding: 10px 14px; font-weight: 600; background: var(--accent); color: #fff; cursor: pointer; }
+.btn:hover { filter: brightness(1.05); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); }
+.btn-pill { background: #fff; color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 999px; font-weight: 600; }
+.btn-pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Header */
+.app-header { position: sticky; top: 0; z-index: 20; background: #fff; border-bottom: 1px solid var(--border); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-dot { width: 24px; height: 24px; border-radius: 8px; background: var(--accent); display: inline-block; }
+.brand h1 { font-size: 16px; margin: 0; font-weight: 700; letter-spacing: .2px; }
+
+/* Layout */
+.layout { display: grid; gap: 20px; padding: 20px 0 28px; grid-template-columns: 1fr; }
+.pane { min-width: 0; }
+.pane-right { position: relative; }
+@media (min-width: 1024px) {
+  .layout { grid-template-columns: 1fr 1fr; }
+  .pane-right { position: sticky; top: 84px; height: fit-content; align-self: start; }
+}
+
+/* Dropzone */
+.dropzone { padding: 16px; text-align: center; }
+.dropzone.dragover { outline: 2px dashed #b6c2ff; background: #f7f8ff; }
+.dz-topline { font-size: 13px; color: var(--text); }
+.dz-subline { font-size: 12px; color: var(--muted); margin: 6px 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 10px; }
+.chip { font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; background: #fff; }
+
+/* Chat */
+.chat { display: flex; flex-direction: column; height: min(70vh, 560px); }
+.messages { flex: 1; overflow: auto; padding: 14px; display: grid; gap: 10px; }
+.msg { display: flex; }
+.msg .bubble {
+  max-width: 80%; padding: 10px 12px; border-radius: 14px; font-size: 13px;
+  border: 1px solid var(--border); background: #f4f5f7; color: var(--text);
+}
+.msg.user { justify-content: flex-end; }
+.msg.user .bubble { background: var(--accent); color: #fff; border-color: var(--accent); border-bottom-right-radius: 4px; }
+.msg.assistant .bubble { border-bottom-left-radius: 4px; }
+.msg .meta { display: block; margin-top: 6px; opacity: .75; font-size: 12px; }
+
+/* Chat input */
+.chat-input { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 10px; border-top: 1px solid var(--border); }
+.chat-input textarea {
+  width: 100%; resize: none; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border);
+  font: inherit; outline: none;
+}
+.chat-input textarea:focus { box-shadow: 0 0 0 3px rgba(17,24,39,.08); border-color: #c7ccd1; }
+
+/* Switcher + Preview */
+.switcher { padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.switcher-title { font-weight: 700; font-size: 13px; }
+.switcher-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.preview { padding: 18px; }
+
+/* Resume prose & templates (Overleaf-inspired) */
+.resume-prose { color: var(--text); }
+.resume-prose h1 { font-size: 22px; margin: 0; font-weight: 800; letter-spacing: .2px; }
+.resume-prose h2 {
+  margin: 18px 0 6px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700;
+  border-bottom: 1px solid #dcdfe4; padding-bottom: 6px;
+}
+.resume-prose h3 { font-size: 14px; margin: 12px 0 4px; font-weight: 700; }
+.resume-prose p { margin: 6px 0; font-size: 13.5px; }
+.resume-prose ul { margin: 6px 0 6px 18px; }
+.resume-prose li { font-size: 13.5px; margin: 4px 0; }
+.resume-prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 10px 0; }
+
+.tpl-classic { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+.tpl-serif   { font-family: "Source Serif 4", Georgia, Cambria, "Times New Roman", Times, serif; }
+.tpl-compact { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+.tpl-compact .resume-prose { line-height: 1.35; }
+.tpl-compact h2 { margin-top: 12px; font-size: 11px; }
+
+/* Footer & toast */
+.hint { color: var(--muted); font-size: 12px; margin: 8px 4px; }
+.footer { text-align: center; color: #9aa0a6; font-size: 12px; padding: 28px 0 40px; }
+.toast {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: 18px; z-index: 50;
+  background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px;
+  box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: opacity .2s ease;
+}
+.toast.show { opacity: 1; }
+.chat-input {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid var(--border);
+}
+.chat-input textarea {
+  width: 100%;
+  resize: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font: inherit;
+  outline: none;
+}
+.chat-input textarea:focus {
+  box-shadow: 0 0 0 3px rgba(17,24,39,.08);
+  border-color: #c7ccd1;
+}
+
+/* Print */
+@media print {
+  header, .pane-left, .switcher, .toast, .footer { display: none !important; }
+  .layout, .pane-right, .preview, .resume-prose { margin: 0; padding: 0; box-shadow: none; border: 0; }
+}
